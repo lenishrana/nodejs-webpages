@@ -28,11 +28,20 @@ pipeline {
          stage('Docker Build & Push') {
             steps {
                 script {
-                    withDockerregistry(credentialsId: '  ', toolName: 'docker') {                                     # add credentials using pipeline syntax
+                    withDockerregistry(credentialsId: '  ', toolName: 'docker') {                                     # add credentials using Jenkins pipeline syntax
 
                         sh "docker build -t demonodejs ."
                         sh "docekr tag demonodejs lenishrana/nodejs:latest"
                         sh "docker push lenishrana/nodejs:latest"
+                    }
+                }
+
+                 stage('Docker Deploy') {
+            steps {
+                script {
+                    withDockerregistry(credentialsId: '  ', toolName: 'docker') {                                     # add credentials using Jenkins pipeline syntax
+
+                        sh "docker run -d --name demo-nodejs -p 8081:8081 lenishrana/nodejs:latest"
                     }
                 }
             }
