@@ -8,7 +8,7 @@ COPY ./ ./
 RUN npm install
 
 #Expose a port for the application
-EXPOSE 8081
+EXPOSE 8080
 
 #Default command to launch the application
 CMD ["npm", "start"]
